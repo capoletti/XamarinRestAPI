@@ -19,18 +19,14 @@ namespace XamarinRestAPI
         {
             Current.MainPage = new TabbedPage
             {
+                //inclusão de itens de navegação
                 Children =
                 {
                     new NavigationPage(new ItemsPage())
                     {
-                        Title = "Browse",
+                        Title = "Países",
                         Icon = Device.OnPlatform("tab_feed.png",null,null)
-                    },
-                    new NavigationPage(new AboutPage())
-                    {
-                        Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
-                    },
+                    }
                 }
             };
         }

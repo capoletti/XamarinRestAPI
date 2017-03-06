@@ -11,8 +11,7 @@ namespace XamarinRestAPI.ViewModels
         /// <summary>
         /// Get the azure service instance
         /// </summary>
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-
+       
         bool isBusy = false;
         public bool IsBusy
         {

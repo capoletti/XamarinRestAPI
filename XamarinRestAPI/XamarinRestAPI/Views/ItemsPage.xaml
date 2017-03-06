@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinRestAPI.Views"
              x:Class="XamarinRestAPI.Views.ItemsPage"
-              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
-  <ContentPage.ToolbarItems>
-  	<ToolbarItem Text="Add Item" Clicked="AddItem_Clicked" />
-  </ContentPage.ToolbarItems>
-  <ContentPage.Content>
-    <StackLayout>
-      <ListView x:Name="ItemsListView"
-				ItemsSource="{Binding Items}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-				ItemSelected="OnItemSelected">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <StackLayout Padding="10">
-                <Label Text="{Binding Text}"
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemTextStyle}"
-                       FontSize="16"/>
-                <Label Text="{Binding Description}"
-                       LineBreakMode="NoWrap"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                       FontSize="13"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-    </StackLayout> 
-  </ContentPage.Content>
+		     x:Name="ItemsPage"
+		     Title="{Binding Title}">
+    <Page.ToolbarItems>
+        <ToolbarItem x:Name="CallButton"
+				     Command="{Binding CallCommand, Source={x:Reference ItemsPage}}" 
+			         Text="Refresh" />
+        <ToolbarItem Command="{Binding StatusCommand, Source={x:Reference ItemsPage}}"
+					 Order="Secondary"
+			         Text="Status" />
+        <ToolbarItem Command="{Binding SearchCommand, Source={x:Reference ItemsPage}}"
+					 Order="Secondary"
+			         Text="Search" />
+    </Page.ToolbarItems>
+    <Grid>
+        <ActivityIndicator x:Name="Indicator" 
+			               IsRunning="{Binding IsBusy, Source={x:Reference ItemsPage}}" 
+			               />
+        <ScrollView x:Name="StatusPanel"
+				    VerticalOptions="FillAndExpand"
+				    IsVisible="false"
+				    Padding="10">
+            <Label x:Name="Response"
+				   Text="[Response here]"			 
+				   />
+        </ScrollView>
+        <ListView x:Name="List" ItemsSource="{Binding Countries, Source={x:Reference ItemsPage}}"
+				  IsPullToRefreshEnabled="True"
+				  IsRefreshing="{Binding IsBusy, Source={x:Reference ItemsPage}}"
+				  VerticalOptions="FillAndExpand"
+				  RefreshCommand="{Binding CallCommand, Source={x:Reference ItemsPage}}"
+				  CachingStrategy="RecycleElement"
+				  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:CountryCell/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </ContentPage>

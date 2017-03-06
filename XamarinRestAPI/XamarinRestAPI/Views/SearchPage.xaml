@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinRestAPI.Views"
+             x:Class="XamarinRestAPI.Views.SearchPage"
+		     x:Name="RootPage"
+		     Title="Search countries">
+    <StackLayout Orientation="Vertical">
+        <SearchBar Text="{Binding SearchText, Mode=TwoWay, Source={x:Reference ItemsPage}}" />
+        <ListView ItemsSource="{Binding Results, Source={x:Reference ItemsPage}}"
+				  IsPullToRefreshEnabled="False"
+				  VerticalOptions="FillAndExpand"
+				  CachingStrategy="RecycleElement"
+				  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:CountryCell />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ActivityIndicator x:Name="Indicator" 
+			               IsRunning="{Binding IsBusy, Source={x:Reference ItemsPage}}" 
+			               />
+    </StackLayout>
+</ContentPage>

@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRestAPI", "XamarinRestAPI\XamarinRestAPI\XamarinRestAPI.csproj", "{20A71D72-3465-4B04-9278-88CD10824B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRestAPI.Android", "XamarinRestAPI\XamarinRestAPI.Android\XamarinRestAPI.Android.csproj", "{FB783F04-2E8E-4037-B51E-A8DE947AA678}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRestAPI.Droid", "XamarinRestAPI\XamarinRestAPI.Android\XamarinRestAPI.Droid.csproj", "{FB783F04-2E8E-4037-B51E-A8DE947AA678}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinRestAPI.iOS", "XamarinRestAPI\XamarinRestAPI.iOS\XamarinRestAPI.iOS.csproj", "{D5CE8697-1F86-4BB8-AA7E-BD952067B038}"
 EndProject
