@@ -7,10 +7,11 @@ using XamarinRestAPI.Models;
 
 namespace XamarinRestAPI.Services
 {
-    public class CountryService : PlainRestClient
+    public class CountryService : RestClient
     {
         protected const string FLAG_SERVICE = "http://www.geognos.com/api/en/countries/flag";
 
+        //instancia o construtor baase passando a url da api desejada
         public CountryService() : base("https://restcountries.eu/rest/v1/all") { }
 
         public Task<IEnumerable<Country>> GetCountries()

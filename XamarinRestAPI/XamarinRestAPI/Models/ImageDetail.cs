@@ -9,9 +9,8 @@ namespace XamarinRestAPI.Models
 {
     public class ImageDetail : BaseDataObject
     {
-
         public string Name { get; set; }
-        public ImageSource Image { get; set; }
 
+        public ImageSource Image { get; set; }
     }
 }

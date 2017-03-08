@@ -24,10 +24,5 @@ namespace XamarinRestAPI.Models
         /// Azure UpdateAt timestamp for online/offline sync
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
-
-        /// <summary>
-        /// Azure version for online/offline sync
-        /// </summary>
-        public string AzureVersion { get; set; }
     }
 }

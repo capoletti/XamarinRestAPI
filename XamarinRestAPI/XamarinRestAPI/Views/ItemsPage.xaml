@@ -6,15 +6,9 @@
 		     x:Name="ItemsPage"
 		     Title="{Binding Title}">
     <Page.ToolbarItems>
-        <ToolbarItem x:Name="CallButton"
-				     Command="{Binding CallCommand, Source={x:Reference ItemsPage}}" 
-			         Text="Refresh" />
-        <ToolbarItem Command="{Binding StatusCommand, Source={x:Reference ItemsPage}}"
-					 Order="Secondary"
-			         Text="Status" />
-        <ToolbarItem Command="{Binding SearchCommand, Source={x:Reference ItemsPage}}"
-					 Order="Secondary"
-			         Text="Search" />
+        <ToolbarItem x:Name="LoadButton"
+				     Command="{Binding LoadCommand, Source={x:Reference ItemsPage}}" 
+			         Text="Atualizar" />
     </Page.ToolbarItems>
     <Grid>
         <ActivityIndicator x:Name="Indicator" 
@@ -32,7 +26,7 @@
 				  IsPullToRefreshEnabled="True"
 				  IsRefreshing="{Binding IsBusy, Source={x:Reference ItemsPage}}"
 				  VerticalOptions="FillAndExpand"
-				  RefreshCommand="{Binding CallCommand, Source={x:Reference ItemsPage}}"
+				  RefreshCommand="{Binding LoadCommand, Source={x:Reference ItemsPage}}"
 				  CachingStrategy="RecycleElement"
 				  HasUnevenRows="True">
             <ListView.ItemTemplate>

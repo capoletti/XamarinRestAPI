@@ -13,18 +13,15 @@ namespace XamarinRestAPI.Views
         protected CountryService DataService { get; set; }
 
         public ObservableCollection<CountryViewModel> Countries { get; set; }
-        public ICommand CallCommand { get; set; }
-        public ICommand StatusCommand { get; set; }
-        public ICommand SearchCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
+
         public NavigationService NavigationService { get; set; }
 
         public ItemsPage()
         {
             Countries = new ObservableCollection<CountryViewModel>();
             DataService = new CountryService();
-            CallCommand = new Command(obj => CallCountries());
-            StatusCommand = new Command(obj => CallPlain());
-            SearchCommand = new Command(obj => CallSearch());
+            LoadCommand = new Command(obj => LoadCountries());
             NavigationService = new NavigationService(Navigation);
 
             InitializeComponent();
@@ -47,7 +44,7 @@ namespace XamarinRestAPI.Views
             {
                 return;
             }
-            CallCountries();
+            LoadCountries();
         }
                 
         private async void BrowseCountry(CountryViewModel obj)
@@ -55,41 +52,13 @@ namespace XamarinRestAPI.Views
             await NavigationService.PushAsync<CountryPage>(obj);
         }
 
-        private async void CallPlain()
-        {
-            CallButton.Text = "Calling";
-            IsBusy = true;
-            List.IsVisible = true;
-
-            Response.Text = string.Empty;
-            StatusPanel.IsVisible = false;
-
-            try
-            {
-                Response.Text = await DataService.GetData();
-                List.IsVisible = false;
-                StatusPanel.IsVisible = true;
-            }
-            catch (Exception ex)
-            {
-                Response.Text = ex.Message;
-                StatusPanel.IsVisible = true;
-                List.IsVisible = false;
-            }
-            finally
-            {
-                IsBusy = false;
-                CallButton.Text = "Refresh";
-            }
-        }
-        
-        private async void CallCountries()
+        private async void LoadCountries()
         {
             if (Countries.Any())
             {
                 Indicator.IsVisible = false;
             }
-            CallButton.Text = "Calling";
+            LoadButton.Text = "Atualizando";
             IsBusy = true;
             List.IsVisible = true;
             Response.Text = string.Empty;
@@ -120,16 +89,8 @@ namespace XamarinRestAPI.Views
             finally
             {
                 IsBusy = false;
-                CallButton.Text = "Refresh";
+                LoadButton.Text = "Atualizar";
             }
-        }
-                
-        private async void CallSearch()
-        {
-            var searchPage = new SearchPage();
-            searchPage.Countries = Countries;
-
-            await NavigationService.PushAsync(searchPage);
         }
 
     }

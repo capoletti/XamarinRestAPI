@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 
 namespace XamarinRestAPI.Services
 {
-    public abstract class PlainRestClient
+    public abstract class RestClient
     {
         protected string BaseUrl { get; set; }
 
-        protected PlainRestClient(string baseUrl)
+        protected RestClient(string baseUrl)
         {
             BaseUrl = baseUrl;
         }
 
         public async Task<string> GetData()
         {
+            //realiza chama assincrona a url solicitada
             using (var httpClient = new HttpClient())
             {
                 return await httpClient.GetStringAsync(BaseUrl).ConfigureAwait(false);
@@ -33,17 +34,21 @@ namespace XamarinRestAPI.Services
 
             using (var httpClient = new HttpClient())
             {
+                //adiona header na requisição
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
+               
+                //realiza chama assincrona a url solicitada
                 var response = await httpClient.GetAsync(BaseUrl).ConfigureAwait(false);
 
+                //verificar o status da resposta
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
                     if (!string.IsNullOrWhiteSpace(json))
                     {
+                        //deserealiza o objeto json no tipo da classe
                         result = await Task.Run(() =>
                         {
                             return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
@@ -51,6 +56,8 @@ namespace XamarinRestAPI.Services
                     }
                 }
             }
+
+            //retorna a objeto preenchido
             return result;
         }
 
